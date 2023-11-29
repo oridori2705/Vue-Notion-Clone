@@ -1,6 +1,7 @@
 <template>
   <li>
     <div :style="{ paddingLeft: `${14 * depth}px` }" class="title">
+      <span class="material-icons"> play_arrow </span>
       {{ workspace.title }}
     </div>
     <ul v-if="hasChildren">
