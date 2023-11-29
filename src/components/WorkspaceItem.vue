@@ -9,7 +9,7 @@
         play_arrow
       </span>
       <div class="span text">
-        {{ workspace.title }}
+        {{ workspace.title || '제목 없음' }}
       </div>
 
       <div class="actions">
