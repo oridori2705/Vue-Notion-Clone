@@ -5,6 +5,18 @@
   },
   "extends": ["eslint:recommended", "plugin:vue/vue3-recommended"],
   "rules": {
-    "vue/multi-word-component-names": 0
+    "vue/multi-word-component-names": 0,
+    "vue/html-self-closing": [
+      "error",
+      {
+        "html": {
+          "void": "always",
+          "normal": "never",
+          "component": "always"
+        },
+        "svg": "always",
+        "math": "always"
+      }
+    ]
   }
 }
