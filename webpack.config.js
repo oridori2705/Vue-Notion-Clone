@@ -4,7 +4,7 @@ const HtmlPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  reslove: {
+  resolve: {
     extensions: [".vue", ".js"],
     alias: {
       "~": path.resolve(__dirname, "src"),
@@ -13,7 +13,7 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: "./",
+    publicPath: "/",
     clean: true,
   },
   module: {
