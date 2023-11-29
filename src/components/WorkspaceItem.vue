@@ -1,7 +1,13 @@
 <template>
   <li>
     <div :style="{ paddingLeft: `${14 * depth}px` }" class="title">
-      <span class="material-icons"> play_arrow </span>
+      <span
+        :class="{ active: showChildren }"
+        class="material-icons"
+        @click="showChildren = !showChildren"
+      >
+        play_arrow
+      </span>
       <div class="span text">
         {{ workspace.title }}
       </div>
@@ -11,7 +17,14 @@
         <span class="material-icons">delete</span>
       </div>
     </div>
-    <ul v-if="hasChildren">
+    <div
+      v-if="!hasChildren && showChildren"
+      class="no-children"
+      :style="{ paddingLeft: `${14 * depth + 22}px` }"
+    >
+      하위 페이지가 없습니다.
+    </div>
+    <ul v-if="hasChildren && showChildren">
       <WorkspaceItem
         v-for="ws in workspace.documents"
         :key="ws.id"
@@ -33,6 +46,11 @@ export default {
       type: Number,
       default: 1,
     },
+  },
+  data() {
+    return {
+      showChildren: false,
+    };
   },
   computed: {
     hasChildren() {
@@ -64,6 +82,9 @@ li {
       &:hover {
         background-color: $color-background--hover2;
       }
+      &.active {
+        transform: rotate(90deg);
+      }
     }
     .text {
       flex-grow: 1;
@@ -75,6 +96,15 @@ li {
       display: none;
       align-items: center;
     }
+  }
+  .no-children {
+    color: rgba($color-font, 0.35);
+    height: 30px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 </style>

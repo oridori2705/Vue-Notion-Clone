@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import WorkspaceItem from "~/components/WorkspaceItem";
+import WorkspaceItem from '~/components/WorkspaceItem';
 
 export default {
   components: {
@@ -28,7 +28,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("workspace/readWorkspaces");
+    this.$store.dispatch('workspace/readWorkspaces');
   },
 };
 </script>
@@ -48,7 +48,7 @@ nav {
       height: 20px;
       border-radius: 4px;
       margin-right: 10px;
-      background-image: url("/static/icon.jpg");
+      background-image: url('/static/icon.jpg');
       background-size: cover;
     }
   }
