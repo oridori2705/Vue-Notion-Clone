@@ -1,4 +1,4 @@
-import { request } from "../api/api.js";
+import { request } from '../api/api.js';
 
 export default {
   namespaced: true,
@@ -16,19 +16,35 @@ export default {
     },
   },
   actions: {
-    createWorkspace() {},
-    async readWorkspaces({ commit }) {
-      const workspaces = await request("/documents", {
-        method: "GET",
+    async createWorkspace({ dispatch }, payload = {}) {
+      const { parentId } = payload;
+
+      await request('/documents', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: '',
+          parent: parentId,
+        }),
       });
-      console.log(workspaces);
-      commit("assignState", {
+      dispatch('readWorkspace');
+    },
+    async readWorkspaces({ commit }) {
+      const workspaces = await request('/documents', {
+        method: 'GET',
+      });
+      commit('assignState', {
         workspaces,
       });
     },
     readWorkspace() {},
     updateWorkspace() {},
-    deleteWorkspace() {},
+    async deleteWorkspace({ dispatch }, payload) {
+      const { id } = payload;
+      await request(`/documents/${id}`, {
+        method: 'DELETE',
+      });
+      dispatch('readWorkspace');
+    },
   },
 };
 

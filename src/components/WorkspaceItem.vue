@@ -13,8 +13,8 @@
       </div>
 
       <div class="actions">
-        <span class="material-icons">add</span>
-        <span class="material-icons">delete</span>
+        <span class="material-icons" @click="createWorkspace">add</span>
+        <span class="material-icons" @click="deleteWorkspace">delete</span>
       </div>
     </div>
     <div
@@ -55,6 +55,18 @@ export default {
   computed: {
     hasChildren() {
       return this.workspace.documents && this.workspace.documents.length;
+    },
+  },
+  methods: {
+    createWorkspace() {
+      this.$store.dispatch('workspace/createWorkspace', {
+        parentId: this.workspace.id,
+      });
+    },
+    deleteWorkspace() {
+      this.$store.dispatch('workspace/deleteWorkspace', {
+        id: this.workspace.id,
+      });
     },
   },
 };
