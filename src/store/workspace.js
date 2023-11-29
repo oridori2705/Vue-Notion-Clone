@@ -26,7 +26,7 @@ export default {
           parent: parentId,
         }),
       });
-      dispatch('readWorkspaces');
+      await dispatch('readWorkspaces');
     },
     async readWorkspaces({ commit }) {
       const workspaces = await request('/documents', {
@@ -43,7 +43,7 @@ export default {
       await request(`/documents/${id}`, {
         method: 'DELETE',
       });
-      dispatch('readWorkspaces');
+      await dispatch('readWorkspaces');
     },
   },
 };
