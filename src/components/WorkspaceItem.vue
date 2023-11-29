@@ -2,7 +2,14 @@
   <li>
     <div :style="{ paddingLeft: `${14 * depth}px` }" class="title">
       <span class="material-icons"> play_arrow </span>
-      {{ workspace.title }}
+      <div class="span text">
+        {{ workspace.title }}
+      </div>
+
+      <div class="actions">
+        <span class="material-icons">add</span>
+        <span class="material-icons">delete</span>
+      </div>
     </div>
     <ul v-if="hasChildren">
       <WorkspaceItem
@@ -35,4 +42,36 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+li {
+  .title {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 0 14px;
+    color: rgba($color-font, 0.7);
+    &:hover {
+      background-color: $color-background--hover1;
+      padding-right: 4px;
+      .actions {
+        display: flex;
+      }
+    }
+    .material-icons {
+      font-size: 18px;
+      color: $color-icon;
+      margin-right: 4px;
+      &:hover {
+        background-color: $color-background--hover2;
+      }
+    }
+    .text {
+      flex-grow: 1;
+    }
+    .actions {
+      display: none;
+      align-items: center;
+    }
+  }
+}
+</style>
