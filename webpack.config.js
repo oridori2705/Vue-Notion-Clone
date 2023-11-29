@@ -35,7 +35,15 @@ module.exports = {
           "vue-style-loader",
           "css-loader",
           "postcss-loader",
-          "sass-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              additionalData: `
+              @use "sass:color";
+              @import "~/scss/_variables";
+              `,
+            },
+          },
         ],
         exclude: /node_modules/,
       },
