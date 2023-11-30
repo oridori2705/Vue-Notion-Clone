@@ -57,7 +57,6 @@ export default {
         const workspace = await request(`/documents/${id}`, {
           method: 'GET',
         });
-
         commit('assignState', {
           currentWorkspace: workspace,
         });

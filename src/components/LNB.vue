@@ -52,6 +52,14 @@ export default {
   methods: {
     async workspacesInit() {
       await this.$store.dispatch('workspace/readWorkspaces');
+      if (this.$forceUpdate.fullPath === '/') {
+        this.$router.push({
+          name: 'Workspace',
+          params: {
+            id: this.$store.state.workspace.workspaces[0].id,
+          },
+        });
+      }
     },
     navInit() {
       interact(this.$refs.nav)
