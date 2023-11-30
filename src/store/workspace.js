@@ -46,18 +46,22 @@ export default {
       });
       if (!workspaces.length) {
         //문서가 없는 경우 무조건 하나의 문서 생성시킴
-        dispatch('createWorkspace');
+        await dispatch('createWorkspace');
       }
     },
     async readWorkspace({ commit }, payload) {
       const { id } = payload;
+      try {
+        const workspace = await request(`/documents/${id}`, {
+          method: 'GET',
+        });
 
-      const workspace = await request(`/documents/${id}`, {
-        method: 'GET',
-      });
-      commit('assignState', {
-        currentWorkspace: workspace,
-      });
+        commit('assignState', {
+          currentWorkspace: workspace,
+        });
+      } catch (error) {
+        router.push('/error');
+      }
     },
     async updateWorkspace({ dispatch }, payload) {
       const { id, title, content } = payload;
