@@ -16,7 +16,7 @@
       <span
         :class="{ active: showChildren }"
         class="material-icons"
-        @click="showChildren = !showChildren"
+        @click.stop="showChildren = !showChildren"
       >
         play_arrow
       </span>
@@ -25,8 +25,8 @@
       </div>
 
       <div class="actions">
-        <span class="material-icons" @click="createWorkspace">add</span>
-        <span class="material-icons" @click="deleteWorkspace">delete</span>
+        <span class="material-icons" @click.stop="createWorkspace">add</span>
+        <span class="material-icons" @click.stop="deleteWorkspace">delete</span>
       </div>
     </div>
     <div
