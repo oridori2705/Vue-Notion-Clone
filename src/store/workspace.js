@@ -1,4 +1,5 @@
 import { request } from '../api/api.js';
+import router from '~/routes';
 
 export default {
   namespaced: true,
@@ -20,7 +21,7 @@ export default {
     async createWorkspace({ dispatch }, payload = {}) {
       const { parentId } = payload;
 
-      await request('/documents', {
+      const workspace = await request('/documents', {
         method: 'POST',
         body: JSON.stringify({
           title: '',
@@ -28,6 +29,13 @@ export default {
         }),
       });
       await dispatch('readWorkspaces');
+
+      router.push({
+        name: 'Workspace',
+        params: {
+          id: workspace.id,
+        },
+      });
     },
     async readWorkspaces({ commit }) {
       const workspaces = await request('/documents', {
@@ -57,7 +65,7 @@ export default {
           content,
         }),
       });
-      dispatch('readWorkspaces');
+      await dispatch('readWorkspaces');
     },
     async deleteWorkspace({ dispatch }, payload) {
       const { id } = payload;
