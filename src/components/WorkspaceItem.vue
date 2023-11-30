@@ -75,10 +75,11 @@ export default {
       });
       this.showChildren = true;
     },
-    deleteWorkspace() {
-      this.$store.dispatch('workspace/deleteWorkspace', {
+    async deleteWorkspace() {
+      await this.$store.dispatch('workspace/deleteWorkspace', {
         id: this.workspace.id,
       });
+      this.$router.push('/workspace');
     },
   },
 };
