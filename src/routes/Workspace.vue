@@ -1,13 +1,20 @@
 <template>
   <section>
     <div class="inner">
-      <div ref="title" class="title" contenteditable @input="onInput">
+      <div
+        ref="title"
+        class="title"
+        contenteditable
+        placeholder="제목 없음"
+        @input="onInput"
+      >
         {{ title }}
       </div>
       <div
         ref="content"
         class="content"
         contenteditable
+        placeholder="내용을 입력하세요!"
         @input="onInput"
         v-html="content"
       ></div>
@@ -61,6 +68,10 @@ section {
       &.content {
         font-size: 16px;
         line-height: 1.8;
+      }
+      &:empty::before {
+        content: attr(placeholder);
+        color: rgba($color-font, 0.3);
       }
     }
   }
