@@ -43,12 +43,16 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('workspace/readWorkspaces');
+    //created와 같은 라이프사이클에서는 별도의 비동기 동작을 수행할 수 없음 따로 method에서 처리
+    this.workspacesInit();
   },
   mounted() {
     this.navInit();
   },
   methods: {
+    async workspacesInit() {
+      await this.$store.dispatch('workspace/readWorkspaces');
+    },
     navInit() {
       interact(this.$refs.nav)
         .resizable({

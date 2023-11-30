@@ -7,6 +7,7 @@ export default {
     return {
       workspaces: [],
       currentWorkspace: {},
+      currentWorkspacePath: [],
     };
   },
   getters: {},
@@ -44,6 +45,7 @@ export default {
       commit('assignState', {
         workspaces,
       });
+      dispatch('findWorkspacePath');
       if (!workspaces.length) {
         //문서가 없는 경우 무조건 하나의 문서 생성시킴
         await dispatch('createWorkspace');
@@ -88,6 +90,27 @@ export default {
           },
         });
       }
+    },
+    findWorkspacePath({ state, commit }) {
+      const currentWorkspaceId = parseInt(
+        router.currentRoute.value.params.id,
+        10,
+      );
+      // _find의 언더바는 현재 파일에서만 사용할 함수라는 뜻 -  일종의 코딩 컨벤션
+      function _find(workspace, parents) {
+        if (currentWorkspaceId == workspace.id) {
+          commit('assignState', {
+            currentWorkspacePath: [...parents, workspace],
+          });
+        }
+        if (workspace.documents) {
+          //재귀 호출
+          workspace.documents.forEach((ws) =>
+            _find(ws, [...parents, workspace]),
+          );
+        }
+      }
+      state.workspaces.forEach((workspace) => _find(workspace, []));
     },
   },
 };
