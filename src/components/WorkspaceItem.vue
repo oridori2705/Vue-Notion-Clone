@@ -81,7 +81,6 @@ export default {
       await this.$store.dispatch('workspace/deleteWorkspace', {
         id: this.workspace.id,
       });
-      this.$router.push('/workspace');
     },
   },
 };

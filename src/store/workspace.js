@@ -37,24 +37,27 @@ export default {
         },
       });
     },
-    async readWorkspaces({ commit }) {
+    async readWorkspaces({ commit, dispatch }) {
       const workspaces = await request('/documents', {
         method: 'GET',
       });
       commit('assignState', {
         workspaces,
       });
+      if (!workspaces.length) {
+        //문서가 없는 경우 무조건 하나의 문서 생성시킴
+        dispatch('createWorkspace');
+      }
     },
     async readWorkspace({ commit }, payload) {
       const { id } = payload;
-      if (id) {
-        const workspace = await request(`/documents/${id}`, {
-          method: 'GET',
-        });
-        commit('assignState', {
-          currentWorkspace: workspace,
-        });
-      }
+
+      const workspace = await request(`/documents/${id}`, {
+        method: 'GET',
+      });
+      commit('assignState', {
+        currentWorkspace: workspace,
+      });
     },
     async updateWorkspace({ dispatch }, payload) {
       const { id, title, content } = payload;
@@ -67,12 +70,20 @@ export default {
       });
       await dispatch('readWorkspaces');
     },
-    async deleteWorkspace({ dispatch }, payload) {
+    async deleteWorkspace({ state, dispatch }, payload) {
       const { id } = payload;
       await request(`/documents/${id}`, {
         method: 'DELETE',
       });
       await dispatch('readWorkspaces');
+      if (id === parseInt(router.currentRoute.value.params.id, 10)) {
+        router.push({
+          name: 'Workspace',
+          params: {
+            id: state.workspaces[0].id,
+          },
+        });
+      }
     },
   },
 };
