@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section :key="$route.params.id">
     <div class="inner">
       <div
         ref="title"
@@ -87,3 +87,7 @@ section {
   }
 }
 </style>
+
+<!-- Vue의 단점 -->
+<!-- Vue의 최적화때문에 페이지가 바뀌는데도 실제로 다시 렌더링을 하지않게 된다.  -->
+<!-- 그 때문에 만약 데이터를 입력하고 페이지를 변환했는데도   -->
