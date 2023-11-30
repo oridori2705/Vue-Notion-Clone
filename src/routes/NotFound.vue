@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section key="notfound">
     <h1>404 page Not Found!</h1>
   </section>
 </template>

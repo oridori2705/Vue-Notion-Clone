@@ -53,15 +53,17 @@ export default {
     },
     async readWorkspace({ commit }, payload) {
       const { id } = payload;
-      try {
-        const workspace = await request(`/documents/${id}`, {
-          method: 'GET',
-        });
-        commit('assignState', {
-          currentWorkspace: workspace,
-        });
-      } catch (error) {
-        router.push('/error');
+      if (id) {
+        try {
+          const workspace = await request(`/documents/${id}`, {
+            method: 'GET',
+          });
+          commit('assignState', {
+            currentWorkspace: workspace,
+          });
+        } catch (error) {
+          router.push('/error');
+        }
       }
     },
     async updateWorkspace({ dispatch }, payload) {
