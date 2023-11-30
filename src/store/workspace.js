@@ -46,7 +46,7 @@ export default {
         currentWorkspace: workspace,
       });
     },
-    async updateWorkspace(context, payload) {
+    async updateWorkspace({ dispatch }, payload) {
       const { id, title, content } = payload;
       await request(`/documents/${id}`, {
         method: 'PUT',
@@ -55,6 +55,7 @@ export default {
           content,
         }),
       });
+      dispatch('readWorkspaces');
     },
     async deleteWorkspace({ dispatch }, payload) {
       const { id } = payload;
