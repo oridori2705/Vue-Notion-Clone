@@ -5,6 +5,7 @@ export default {
   state() {
     return {
       workspaces: [],
+      currentWorkspace: {},
     };
   },
   getters: {},
@@ -36,8 +37,25 @@ export default {
         workspaces,
       });
     },
-    readWorkspace() {},
-    updateWorkspace() {},
+    async readWorkspace({ commit }, payload) {
+      const { id } = payload;
+      const workspace = await request(`/documents/${id}`, {
+        method: 'GET',
+      });
+      commit('assignState', {
+        currentWorkspace: workspace,
+      });
+    },
+    async updateWorkspace(context, payload) {
+      const { id, title, content } = payload;
+      await request(`/documents/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          title,
+          content,
+        }),
+      });
+    },
     async deleteWorkspace({ dispatch }, payload) {
       const { id } = payload;
       await request(`/documents/${id}`, {
