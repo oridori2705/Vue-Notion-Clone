@@ -39,6 +39,9 @@ export default {
   },
   methods: {
     onInput() {
+      if (!this.$refs.content.textContent.trim()) {
+        this.$refs.content.innerHTML = '';
+      }
       this.$store.dispatch('workspace/updateWorkspace', {
         id: this.$route.params.id,
         title: this.$refs.title.textContent,
