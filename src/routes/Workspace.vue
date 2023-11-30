@@ -41,3 +41,28 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+section {
+  padding: 100px 0 200px;
+
+  .inner {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px;
+    [contenteditable] {
+      outline: none;
+      cursor: text;
+      &.title {
+        font-size: 44px;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+      &.content {
+        font-size: 16px;
+        line-height: 1.8;
+      }
+    }
+  }
+}
+</style>
