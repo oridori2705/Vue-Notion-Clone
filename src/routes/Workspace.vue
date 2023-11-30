@@ -32,6 +32,13 @@ export default {
       return this.$store.state.workspace.currentWorkspace.content;
     },
   },
+  watch: {
+    $route() {
+      this.$store.dispatch('workspace/readWorkspace', {
+        id: this.$route.params.id,
+      });
+    },
+  },
   created() {
     this.$store.dispatch('workspace/readWorkspace', {
       id: this.$route.params.id,
